@@ -8,15 +8,21 @@ header .logo {
     background: url("../images/logo.png") no-repeat;
     left: 20px;
     height: 100%;
+    position:absolute;
+    width: 50%
 }
 
 #api_status {
-    float: right;
     align-items: center;
-    padding-right: 30px;
+    position: absolute;
+    vertical-align: center;
+    right: 30px;
+    top: 15px;
     background-color:  #cccccc;
-    border-radius: 20px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
 }
-#api_status .available{
-    background-color: #ff545f;
+.available{
+    background-color: #ff545f !important;
 }
