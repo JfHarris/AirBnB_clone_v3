@@ -1,6 +1,4 @@
 #!/usr/bin/python3
-#!/usr/bin/python3
-#!/usr/bin/python3
 """ Starts a Flash Web Application """
 from models import storage
 from models.state import State
@@ -33,18 +31,17 @@ def hbnb():
 
     amenities = storage.all(Amenity).values()
     amenities = sorted(amenities, key=lambda k: k.name)
-    cache_id= str(uuid.uuid4())
+
     places = storage.all(Place).values()
     places = sorted(places, key=lambda k: k.name)
 
-    return render_template('1-hbnb.html',
+    return render_template('2-hbnb.html',
                            states=st_ct,
                            amenities=amenities,
                            places=places,
-                           cache_id=cache_id)
+                           cache_id=uuid.uuid4())
 
 
 if __name__ == "__main__":
     """ Main Function """
     app.run(host='0.0.0.0', port=5000)
-
