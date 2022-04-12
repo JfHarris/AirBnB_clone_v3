@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     $(function () {
         $.get('http://0.0.0.0:5001/api/v1/status/', function (data, status) {
-            if (status === 'OK'){
+            if (status === 'success'){
                 $("div#api_status").addClass('available')
             } else {
                 $("div#api_status").removeClass('available')
