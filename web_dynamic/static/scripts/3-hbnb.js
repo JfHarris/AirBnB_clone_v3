@@ -48,16 +48,26 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       },
 
-
     });
 
-  $.get('http://0.0.0.0:5001/api/v1/status/', (data) => {
-    if (data.status === 'OK') {
-      $('DIV#api_status').addClass('available');
-    } else {
-      $('DIV#api_status').removeClass('available');
-    }
-  });
+    $('.filters button').click(function (event) {
+      $.ajax({
+        url: 'http://0.0.0.0:5001/api/v1/places_search',
+        type: 'POST',
+        contType: 'application/json',
+        dataType: 'JSON',
+        data: JSON.stringify({ amenities: Object.keys(amenList) }),
+        success: function (data) {
+          let thisHTML = [];
+          for (let x = 0; x < data.length; x++) {
+            thisHTML.push(newStuff(data[x]));
+          }
+          thisHTML = thisHTML.join('');
+          $('section.places > article').remove();
+          $('section.places').append(thisHTML);
+        }
+      });
+    });
 
     myDict = {}
       $( 'input' ).change( function() {
