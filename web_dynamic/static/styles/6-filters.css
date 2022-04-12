@@ -101,3 +101,12 @@ button:hover {
 .locations:hover .popover {
     visibility: visible;
 }
+input{
+    margin-right:10px;
+}
+.amenities h4{
+    max-height: 17px;
+    /*overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis; */
+}
