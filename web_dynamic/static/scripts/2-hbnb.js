@@ -13,11 +13,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     myDict = {}
-    $( 'li input[type="checkbox"]' ).on( "click", function() {
+    $( 'input' ).change( function() {
+      if ($(this).is(":checked")) {
         myDict[($( this ).data('id'))] = ' ' + $( this ).data('name');
-      });
-    $( 'li input[type="checkbox"]' ).off( "click", function() {
+      }else{
         delete myDict[$( this ).data('id')];
-      });
-    $( ".amenities h4" ).text(Object.values(myDict))
+      }
+      $( ".amenities h4" ).text(Object.values(myDict))
+    });
   });
