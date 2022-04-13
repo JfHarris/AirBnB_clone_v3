@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   $(function () {
     const amenList = {};
-  
+
     $('div.amenities li input').change(
       function () {
         if ($(this).is(':checked')) {
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         $('div.amenities h4').html(Object.values(amenList).join(', ') || '&nbsp,');
       });
-  
+
     $.get('http://0.0.0.0:5001/api/v1/status/', (data) => {
       if (data.status === 'OK') {
         $('DIV#api_status').addClass('available');
@@ -20,17 +20,11 @@ document.addEventListener("DOMContentLoaded", function () {
         $('DIV#api_status').removeClass('available');
       }
     });
-
-    $('button').click(function () {
-      let amenId = [];
-      for (let x in dict) {
-        amenId.push(x);
-      }
-      let newDict = {};
+    function ajax(data="{}"){
     $.ajax({
       method: 'POST',
       url: 'http://0.0.0.0:5001/api/v1/places_search/',
-      data: '{}',
+      data: data,
       contentType: 'application/json',
       success: function (data) {
         for (const place of data) {
@@ -53,38 +47,28 @@ document.addEventListener("DOMContentLoaded", function () {
           $('.places').append(arti);
         }
       },
-    });
-    });
-    
-  //$('.filters button').click(function (event) {
-    //$.ajax({
-      //url: 'http://0.0.0.0:5001/api/v1/places_search',
-      //type: 'POST',
-      //contType: 'application/json',
-      //dataType: 'JSON',
-      //data: JSON.stringify({ amenities: Object.keys(amenList) }),
-      //success: function (data) {
-        //let thisHTML = [];
-        //for (let x = 0; x < data.length; x++) {
-          //thisHTML.push(newStuff(data[x]));
-        //}
-        //thisHTML = thisHTML.join('');
-        //$('section.places > article').remove();
-        //$('section.places').append(thisHTML);
-      //}
-    //});
-  //});
 
-  myDict = {}
-  $( 'input' ).change( function() {
-    if ($(this).is(":checked")) {
-      myDict[($( this ).data('id'))] = ' ' + $( this ).data('name');
-    }else{
-      delete myDict[$( this ).data('id')];
-    }
-    $( ".amenities h4" ).text(Object.values(myDict))
+    });
+  }
+  ajax();
+
+    $(' button').click(function () {
+      $('section.places').empty();
+      ajax(JSON.stringify({ amenities: Object.keys(amenList) }));
+
+      });
+
+
+    myDict = {}
+      $( 'input' ).change( function() {
+        if ($(this).is(":checked")) {
+          myDict[($( this ).data('id'))] = ' ' + $( this ).data('name');
+        }else{
+          delete myDict[$( this ).data('id')];
+        }
+        $( ".amenities h4" ).text(Object.values(myDict))
+      });
+
   });
 
-});
-
-});
+  });
