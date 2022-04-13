@@ -20,7 +20,13 @@ document.addEventListener("DOMContentLoaded", function () {
         $('DIV#api_status').removeClass('available');
       }
     });
-  
+
+    $('button').click(function () {
+      let amenId = [];
+      for (let x in dict) {
+        amenId.push(x);
+      }
+      let newDict = {};
     $.ajax({
       method: 'POST',
       url: 'http://0.0.0.0:5001/api/v1/places_search/',
@@ -47,27 +53,27 @@ document.addEventListener("DOMContentLoaded", function () {
           $('.places').append(arti);
         }
       },
-      
+    });
     });
     
-  $('.filters button').click(function (event) {
-    $.ajax({
-      url: 'http://0.0.0.0:5001/api/v1/places_search',
-      type: 'POST',
-      contType: 'application/json',
-      dataType: 'JSON',
-      data: JSON.stringify({ amenities: Object.keys(amenList) }),
-      success: function (data) {
-        let thisHTML = [];
-        for (let x = 0; x < data.length; x++) {
-          thisHTML.push(newStuff(data[x]));
-        }
-        thisHTML = thisHTML.join('');
-        $('section.places > article').remove();
-        $('section.places').append(thisHTML);
-      }
-    });
-  });
+  //$('.filters button').click(function (event) {
+    //$.ajax({
+      //url: 'http://0.0.0.0:5001/api/v1/places_search',
+      //type: 'POST',
+      //contType: 'application/json',
+      //dataType: 'JSON',
+      //data: JSON.stringify({ amenities: Object.keys(amenList) }),
+      //success: function (data) {
+        //let thisHTML = [];
+        //for (let x = 0; x < data.length; x++) {
+          //thisHTML.push(newStuff(data[x]));
+        //}
+        //thisHTML = thisHTML.join('');
+        //$('section.places > article').remove();
+        //$('section.places').append(thisHTML);
+      //}
+    //});
+  //});
 
   myDict = {}
   $( 'input' ).change( function() {
